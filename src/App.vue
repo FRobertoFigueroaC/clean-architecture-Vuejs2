@@ -2,13 +2,19 @@
   <div id="app">
     <div id="nav">
       <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
+      <router-link to="/about">About</router-link> |
+      <router-link to="/forms">Forms</router-link>
     </div>
     <router-view />
   </div>
 </template>
 
 <style>
+
+:root{
+  --primary: #42b983;
+}
+
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -29,4 +35,34 @@
 #nav a.router-link-exact-active {
   color: #42b983;
 }
+
+.bar{
+  background-color: var(--primary);
+  padding: 5px 0 5px 0;
+  color: aliceblue;
+}
+.bar h1{
+  color: aliceblue;
+}
+
+#nav{
+  border: 1px solid var(--primary);
+  color: aliceblue;
+}
+
+#nav a{
+  cursor: pointer
+}
+.title {
+  padding: 0.3rem 1.3rem;
+  border-radius: 5px;
+  background-color: var(--primary);
+  color: white !important;
+}
+
+.btn-primary{
+  background-color: var(--primary);
+  color: white !important;
+}
+
 </style>
