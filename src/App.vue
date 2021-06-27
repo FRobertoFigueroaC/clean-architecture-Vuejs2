@@ -60,9 +60,5 @@
   color: white !important;
 }
 
-.btn-primary{
-  background-color: var(--primary);
-  color: white !important;
-}
 
 </style>

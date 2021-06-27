@@ -6,9 +6,9 @@ export default {
   props: ["formMethod"],
   render(h) {
     const director = new FormDirector();
-    const builder = new FormBuilder(h);
+    const builder = new FormBuilder(h, this);
     director[this.formMethod](builder);
-    return builder.getForm();
+    return builder.getHtml();
   },
 };
 </script>

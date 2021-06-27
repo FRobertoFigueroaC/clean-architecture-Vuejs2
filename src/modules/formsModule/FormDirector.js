@@ -1,27 +1,28 @@
 export class FormDirector {
   persons(builder) {
     const fields = [
-      { name: "Person Name" },
-      { name: "Profession" },
-      { name: "Address" },
+      { name: "Person Name", type: "text" },
+      { name: "Profession", type: "text" },
+      { name: "Address", type: "text" },
       { name: "Age", type: "number" },
     ];
     builder.setFields(fields);
+    builder.setSubmit("Save Person");
   }
   cars(builder) {
     const fields = [
-      { name: "Brand" },
-      { name: "Model" },
+      { name: "Brand", type: "text" },
+      { name: "Model", type: "text" },
       { name: "Doors number", type: "number" },
-      { name: "Year" },
+      { name: "Year", type: "text" },
     ];
     builder.setFields(fields);
     builder.setSubmit("Save Car");
   }
   pets(builder) {
     const fields = [
-      { name: "Name" },
-      { name: "Breed" },
+      { name: "Name", type: "text" },
+      { name: "Breed", type: "text" },
       { name: "age", type: "number" },
     ];
 

@@ -4,9 +4,9 @@
       <h1>Forms</h1>
     </div>
     <div id="nav">
-      <a :class="type === 'persons' ? 'title' : ''" @click="type = 'persons'">Persons</a> |
-      <a :class="type === 'cars' ? 'title' : ''" @click="type = 'cars'">Cars</a> |
-      <a :class="type === 'pets' ? 'title' : ''" @click="type = 'pets'">Pets</a>
+      <a :class="type === 'persons' ? 'btn btn-success text-white' : 'btn btn-outline-success'" @click="type = 'persons'">Persons</a> |
+      <a :class="type === 'cars' ? 'btn btn-success text-white' : 'btn btn-outline-success'" @click="type = 'cars'">Cars</a> |
+      <a :class="type === 'pets' ? 'btn btn-success text-white' : 'btn btn-outline-success'" @click="type = 'pets'">Pets</a>
     </div>
 
     <div>
