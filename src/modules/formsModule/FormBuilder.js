@@ -5,6 +5,7 @@ export class FormBuilder {
     this.fields = [];
     this.btn = undefined;
     this.form = {};
+    this.rules = {}
   }
 
   // Form
@@ -20,30 +21,60 @@ export class FormBuilder {
       switch (type) {
         case "text":
           this.form[field.name] = "";
+          this.rules[field.name] = field.rules;
           break;
         case "number":
           this.form[field.name] = 0;
+          this.rules[field.name] = field.rules;
           break;
         case "date":
           this.form[field.name] = new Date();
+          this.rules[field.name] = new Date();
           break;
         default:
           this.form[field.name] = "";
+          this.rules[field.name] = field.rules;
           break;
       }
     });
   }
 
   // Validation form
-  validateForm(event) {
+  Submit(event) {
     event.preventDefault();
-    console.log(this.form);
-    alert("Submit the form");
+    const validation = [...this.validateForm()]
+    if (validation[0]) {
+      alert("Send data via API (check the console)");
+      console.log('Form data', this.form);
+    } else {
+      alert("Validation error, show errors in DOM (check the console)");
+      console.log('Show me in error list', validation[1]);
+    }
+  }
+  validateForm() {
+    const errors = [];
+    Object.entries(this.form).forEach(([key, value]) => {
+      const rulesOfField = this.rules[key];
+      // Validate required
+      if (rulesOfField !== undefined && Object.keys(rulesOfField).length > 0) {
+        //validate require --funcion especifica
+        if (Object.keys(rulesOfField).includes("required") && !value) {
+          errors.push({
+            field:key,
+            rule: "required",
+            msg: `El campo ${key} es obligattorio`,
+          });
+        }
+        // validate type
+        // validate range
+      }
+    });
+    return [(errors.length === 0), errors];
   }
 
   // Events
-  onInput(field,value) {
-    this.form[field] = value
+  onInput(field, value) {
+    this.form[field] = value;
   }
 
   // HTML Renders
@@ -74,7 +105,7 @@ export class FormBuilder {
           class: "btn btn-primary",
           type: "submit",
           on: {
-            click: () => this.validateForm(event),
+            click: () => this.Submit(event),
           },
         },
         text
