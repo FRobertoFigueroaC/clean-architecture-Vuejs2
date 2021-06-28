@@ -5,7 +5,8 @@ export class FormBuilder {
     this.fields = [];
     this.btn = undefined;
     this.form = {};
-    this.rules = {}
+    this.rules = {};
+    this.errors = [];
   }
 
   // Form
@@ -42,13 +43,13 @@ export class FormBuilder {
   // Validation form
   Submit(event) {
     event.preventDefault();
-    const validation = [...this.validateForm()]
-    if (validation[0]) {
+
+    if (this.validateForm()) {
       alert("Send data via API (check the console)");
       console.log('Form data', this.form);
     } else {
       alert("Validation error, show errors in DOM (check the console)");
-      console.log('Show me in error list', validation[1]);
+      console.log('Show me in error list component (state based)', this.errors);
     }
   }
   validateForm() {
@@ -57,19 +58,21 @@ export class FormBuilder {
       const rulesOfField = this.rules[key];
       // Validate required
       if (rulesOfField !== undefined && Object.keys(rulesOfField).length > 0) {
-        //validate require --funcion especifica
+        //validate require
         if (Object.keys(rulesOfField).includes("required") && !value) {
           errors.push({
             field:key,
             rule: "required",
-            msg: `El campo ${key} es obligattorio`,
+            msg: `El campo ${key} es obligatorio`,
           });
         }
         // validate type
         // validate range
+        // etc
       }
     });
-    return [(errors.length === 0), errors];
+    this.errors = errors;
+    return (errors.length === 0);
   }
 
   // Events
@@ -79,13 +82,18 @@ export class FormBuilder {
 
   // HTML Renders
   getHtml() {
-    return this.h("div", { class: "container mx-4" }, [
-      this.h(
-        "form",
-        { class: "row g-3 align-items-center justify-content-center mx-4" },
-        [this.fields, this.btn]
-      ),
-    ]);
+    if (this.errors.length === 0) {
+      return this.h("div", { class: "container mx-4" }, [
+        this.h("form", { class: "row g-3 align-items-center justify-content-center mx-4" }, [this.fields, this.btn]),
+      ]);
+    } else {
+      return this.h("div", { class: "container mx-4" }, [
+        this.h("form", { class: "row g-3 align-items-center justify-content-center mx-4" }, [this.fields, this.btn]),
+        this.h("div", { class: "row align-items-center justify-content-center mx-4 mt-4" },[
+          this.errors.map(error => this.renderError(error))
+        ]),
+      ]);
+    }
   }
 
   setFormHtml(fields) {
@@ -134,5 +142,9 @@ export class FormBuilder {
         },
       }),
     ]);
+  }
+
+  renderError(error) {
+    return this.h("div", { class: "alert alert-danger" }, error.msg);
   }
 }

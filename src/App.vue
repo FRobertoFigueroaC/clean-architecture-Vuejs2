@@ -2,8 +2,8 @@
   <div id="app">
     <div id="nav">
       <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link> |
-      <router-link to="/forms">Forms</router-link>
+      <router-link to="/forms">Forms</router-link>|
+      <router-link to="/state">State</router-link>
     </div>
     <router-view />
   </div>
@@ -47,7 +47,7 @@
 
 #nav{
   border: 1px solid var(--primary);
-  color: aliceblue;
+  color: lightgray;
 }
 
 #nav a{
